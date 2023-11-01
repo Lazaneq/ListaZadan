@@ -1,0 +1,13 @@
+server.error.include-binding-errors: ALWAYS
+spring:
+  output.ansi.enabled: ALWAYS
+  h2:
+    console:
+      enabled: true
+      path: /console
+  datasource:
+    url: jdbc:h2:file:./spring-boot-h2-db
+    username: sa
+    driver-class-name: org.h2.Driver
+  jpa.hibernate.ddl-auto: validate
+
