@@ -3,7 +3,6 @@ package com.ToDoApp.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -44,5 +43,13 @@ public class Project {
 
     public void setSteps(Set<ProjectSteps> steps) {
         this.steps = steps;
+    }
+
+    public Set<TaskGroup> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<TaskGroup> groups) {
+        this.groups = groups;
     }
 }

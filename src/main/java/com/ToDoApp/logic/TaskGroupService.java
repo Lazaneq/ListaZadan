@@ -1,25 +1,22 @@
 package com.ToDoApp.logic;
 
-import com.ToDoApp.TaskConfigurationProperties;
 import com.ToDoApp.model.TaskGroup;
 import com.ToDoApp.model.TaskGroupRepository;
 import com.ToDoApp.model.TaskRepository;
 import com.ToDoApp.model.projection.GroupReadModel;
 import com.ToDoApp.model.projection.GroupWriteModel;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+//@Service
 @RequestScope
 public class TaskGroupService {
     private TaskGroupRepository repository;
     private TaskRepository taskRepository;
 
-    public TaskGroupService(TaskGroupRepository repository, TaskRepository taskRepository, TaskConfigurationProperties config) {
+    public TaskGroupService(TaskGroupRepository repository, TaskRepository taskRepository) {
         this.repository = repository;
         this.taskRepository = taskRepository;
     }
@@ -41,5 +38,6 @@ public class TaskGroupService {
         }
         TaskGroup result = repository.findById(groupId).orElseThrow(()-> new IllegalArgumentException("TaskGroup with given id not found"));
         result.setDone(!result.isDone());
+        repository.save(result);
     }
 }
