@@ -1,5 +1,6 @@
 package com.ToDoApp.logic;
 
+import com.ToDoApp.model.Project;
 import com.ToDoApp.model.TaskGroup;
 import com.ToDoApp.model.TaskGroupRepository;
 import com.ToDoApp.model.TaskRepository;
@@ -21,8 +22,12 @@ public class TaskGroupService {
         this.taskRepository = taskRepository;
     }
 
-    public GroupReadModel createGroup(GroupWriteModel source){
-        TaskGroup result =repository.save(source.toGroup());
+    public GroupReadModel createGroup(final GroupWriteModel source) {
+        return createGroup(source, null);
+    }
+
+    GroupReadModel createGroup(final GroupWriteModel source, final Project project) {
+        TaskGroup result = repository.save(source.toGroup(project));
         return new GroupReadModel(result);
     }
 
@@ -36,7 +41,8 @@ public class TaskGroupService {
         if(taskRepository.existsByDoneIsFalseAndGroupId(groupId)){
          throw new IllegalStateException("Group has undone tasks.");
         }
-        TaskGroup result = repository.findById(groupId).orElseThrow(()-> new IllegalArgumentException("TaskGroup with given id not found"));
+        TaskGroup result = repository.findById(groupId)
+                .orElseThrow(()-> new IllegalArgumentException("TaskGroup with given id not found"));
         result.setDone(!result.isDone());
         repository.save(result);
     }

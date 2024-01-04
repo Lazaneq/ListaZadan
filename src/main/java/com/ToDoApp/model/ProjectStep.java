@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "project_steps")
-public class ProjectSteps {
+public class ProjectStep {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -28,7 +28,7 @@ public class ProjectSteps {
         return description;
     }
 
-    void setDescription(final String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -36,7 +36,7 @@ public class ProjectSteps {
         return daysToDeadline;
     }
 
-    void setDaysToDeadline(final int daysToDeadline) {
+    public void setDaysToDeadline(final int daysToDeadline) {
         this.daysToDeadline = daysToDeadline;
     }
 
@@ -44,7 +44,7 @@ public class ProjectSteps {
         return project;
     }
 
-    void setProject(final Project project) {
+    public void setProject(final Project project) {
         this.project = project;
     }
 

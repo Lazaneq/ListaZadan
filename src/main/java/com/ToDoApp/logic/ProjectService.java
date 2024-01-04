@@ -5,6 +5,7 @@ import com.ToDoApp.model.*;
 import com.ToDoApp.model.projection.GroupReadModel;
 import com.ToDoApp.model.projection.GroupTaskWriteModel;
 import com.ToDoApp.model.projection.GroupWriteModel;
+import com.ToDoApp.model.projection.ProjectWriteModel;
 import org.springframework.web.context.annotation.RequestScope;
 
 import java.time.LocalDateTime;
@@ -30,8 +31,8 @@ public class ProjectService {
         return repository.findAll();
     }
 
-    public Project save(final Project toSave) {
-        return repository.save(toSave);
+    public Project save(final ProjectWriteModel toSave) {
+        return repository.save(toSave.toProject());
     }
 
     public GroupReadModel createGroup(LocalDateTime deadline, int projectId) {
@@ -50,9 +51,9 @@ public class ProjectService {
                                                 task.setDeadline(deadline.plusDays(projectStep.getDaysToDeadline()));
                                                 return task;
                                             }
-                                    ).collect(Collectors.toSet())
+                                    ).collect(Collectors.toList())
                     );
-                    return taskGroupService.createGroup(targetGroup);
+                    return taskGroupService.createGroup(targetGroup, project);
                 }).orElseThrow(() -> new IllegalArgumentException("Project with given id not found"));
     }
 }

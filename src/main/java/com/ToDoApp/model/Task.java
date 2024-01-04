@@ -21,7 +21,7 @@ public class Task {
     @JoinColumn(name = "task_group_id")
     private TaskGroup group;
 
-    Task() {
+    public Task() {
     }
 
     public Task(String description, LocalDateTime deadline){
@@ -82,4 +82,5 @@ public class Task {
         deadline=source.deadline;
         group = source.group;
     }
+
 }
